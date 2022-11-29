@@ -4,7 +4,7 @@ import axios from "axios";
 import React from "react";
 import NavBar from "../components/Navbar/index";
 import PokemonCard from "../components/PokemonCard";
-
+import toFirstCharUppercase from '../utils/constants'
 export const Home = () => {
   const [pokemons, setPokemons] = React.useState([]);
   const [sprites, setSprites] = React.useState([]);
@@ -34,14 +34,20 @@ export const Home = () => {
     <div>
       <NavBar />
       <Container maxWidth="lg">
-      {pokemons.length > 0 ? <Grid container spacing={3}>
-          {pokemons.map((pokemon, key) => (
-            <Grid item xs={3} key={key}>
-              <PokemonCard name={pokemon.data.name} sprite={sprites[key]} />
-            </Grid>
-          ))}
-        </Grid>
-        : <CircularProgress/>}
+        {pokemons.length > 0 ? (
+          <Grid container spacing={3}>
+            {pokemons.map((pokemon, key) => (
+              <Grid item xs={3} key={key}>
+                <PokemonCard
+                  name={toFirstCharUppercase(pokemon.data.name)}
+                  sprite={sprites[key]}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <CircularProgress />
+        )}
       </Container>
     </div>
   );
